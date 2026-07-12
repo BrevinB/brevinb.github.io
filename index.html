@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brevin Blalock — iOS Developer</title>
+<meta name="description" content="Brevin Blalock is an iOS developer with eight apps designed, built, and shipped solo on the App Store.">
+<style>
+  :root {
+    --bg: #F2F2F7;
+    --cell: #FFFFFF;
+    --label: #000000;
+    --secondary: rgba(60, 60, 67, 0.6);
+    --tertiary: rgba(60, 60, 67, 0.3);
+    --separator: rgba(60, 60, 67, 0.29);
+    --tint: #007AFF;
+    --pill-fill: rgba(120, 120, 128, 0.12);
+    --star: #FF9500;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #000000;
+      --cell: #1C1C1E;
+      --label: #FFFFFF;
+      --secondary: rgba(235, 235, 245, 0.6);
+      --tertiary: rgba(235, 235, 245, 0.3);
+      --separator: rgba(84, 84, 88, 0.6);
+      --tint: #0A84FF;
+      --pill-fill: rgba(120, 120, 128, 0.24);
+      --star: #FF9F0A;
+    }
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--label);
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+    font-size: 17px;
+    line-height: 1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--tint); text-decoration: none; }
+  a:focus-visible, button:focus-visible {
+    outline: 3px solid var(--tint);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 56px 20px 48px;
+  }
+
+  /* ---- Header ---- */
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--secondary);
+  }
+  h1 {
+    font-size: clamp(34px, 6vw, 44px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    margin: 6px 0 10px;
+  }
+  .subtitle {
+    color: var(--secondary);
+    font-size: 19px;
+    max-width: 34em;
+  }
+  .subtitle strong { color: var(--label); font-weight: 600; }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 22px;
+  }
+  .link-pill {
+    display: inline-flex;
+    align-items: center;
+    background: var(--pill-fill);
+    color: var(--tint);
+    font-size: 15px;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 999px;
+    transition: transform 0.15s ease;
+  }
+  .link-pill:hover { transform: scale(1.04); }
+
+  /* ---- Dock ---- */
+  .dock {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 14px;
+    margin: 40px 0 14px;
+  }
+  .dock a {
+    display: block;
+    animation: rise 0.55s cubic-bezier(0.22, 1.2, 0.36, 1) backwards;
+  }
+  .dock a:nth-child(1) { animation-delay: 0.05s; }
+  .dock a:nth-child(2) { animation-delay: 0.10s; }
+  .dock a:nth-child(3) { animation-delay: 0.15s; }
+  .dock a:nth-child(4) { animation-delay: 0.20s; }
+  .dock a:nth-child(5) { animation-delay: 0.25s; }
+  .dock a:nth-child(6) { animation-delay: 0.30s; }
+  .dock a:nth-child(7) { animation-delay: 0.35s; }
+  .dock a:nth-child(8) { animation-delay: 0.40s; }
+  .dock img {
+    width: 100%;
+    height: auto;
+    border-radius: 22.37%;
+    display: block;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s cubic-bezier(0.22, 1.4, 0.36, 1);
+  }
+  .dock a:hover img { transform: translateY(-6px) scale(1.06); }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dock a { animation: none; }
+    .dock img, .link-pill { transition: none; }
+  }
+
+  .stats {
+    font-size: 14px;
+    color: var(--secondary);
+    margin-bottom: 8px;
+  }
+  .stats .star { color: var(--star); }
+
+  /* ---- App list ---- */
+  .section-header {
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--secondary);
+    margin: 44px 0 8px 20px;
+  }
+  .group {
+    background: var(--cell);
+    border-radius: 14px;
+    overflow: hidden;
+    list-style: none;
+  }
+  .cell {
+    display: grid;
+    grid-template-columns: 64px 1fr auto;
+    gap: 14px;
+    align-items: center;
+    padding: 14px 16px;
+    position: relative;
+  }
+  .cell + .cell::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 94px;
+    right: 0;
+    height: 1px;
+    background: var(--separator);
+    transform: scaleY(0.5);
+  }
+  .cell img {
+    width: 64px;
+    height: 64px;
+    border-radius: 22.37%;
+    display: block;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  }
+  .cell h2 {
+    font-size: 17px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+  .cell .tagline {
+    font-size: 14px;
+    color: var(--secondary);
+    margin-top: 1px;
+  }
+  .cell .meta {
+    font-size: 12px;
+    color: var(--tertiary);
+    margin-top: 3px;
+  }
+  .cell .meta .star { color: var(--star); }
+  .view {
+    background: var(--pill-fill);
+    color: var(--tint);
+    font-size: 14px;
+    font-weight: 700;
+    padding: 6px 18px;
+    border-radius: 999px;
+    transition: transform 0.15s ease;
+    align-self: center;
+  }
+  .view:hover { transform: scale(1.06); }
+
+  /* ---- About ---- */
+  .about {
+    background: var(--cell);
+    border-radius: 14px;
+    padding: 18px 20px;
+    font-size: 15px;
+    color: var(--secondary);
+  }
+  .about p + p { margin-top: 10px; }
+  .about strong { color: var(--label); font-weight: 600; }
+
+  footer {
+    margin-top: 44px;
+    font-size: 13px;
+    color: var(--tertiary);
+    text-align: center;
+  }
+
+  @media (max-width: 540px) {
+    .page { padding-top: 40px; }
+    .dock { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .cell { grid-template-columns: 56px 1fr auto; padding: 12px 14px; }
+    .cell img { width: 56px; height: 56px; }
+    .cell + .cell::before { left: 84px; }
+    .view { padding: 6px 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <p class="eyebrow">iOS Developer</p>
+    <h1>Brevin Blalock</h1>
+    <p class="subtitle"><strong>Eight apps on the App Store</strong> — each one designed, built, and shipped end-to-end by one person.</p>
+    <nav class="links" aria-label="Contact">
+      <a class="link-pill" href="mailto:bblalock313@gmail.com">Email</a>
+      <a class="link-pill" href="https://apps.apple.com/us/developer/brevin-blalock/id1649097120" target="_blank" rel="noopener">App&nbsp;Store</a>
+      <a class="link-pill" href="https://github.com/brevinb" target="_blank" rel="noopener">GitHub</a>
+      <a class="link-pill" href="https://www.linkedin.com/in/brevinb" target="_blank" rel="noopener">LinkedIn</a>
+    </nav>
+  </header>
+
+  <div class="dock" aria-label="App icons">
+    <a href="https://apps.apple.com/us/app/fridgecig/id6757887069" target="_blank" rel="noopener"><img src="icons/fridgecig.png" alt="FridgeCig app icon"></a>
+    <a href="https://apps.apple.com/us/app/go-moku/id6755370673" target="_blank" rel="noopener"><img src="icons/gomoku.png" alt="go!moku app icon"></a>
+    <a href="https://apps.apple.com/us/app/memorizeit-bible-verse-learn/id6755984758" target="_blank" rel="noopener"><img src="icons/memorizeit.png" alt="MemorizeIt app icon"></a>
+    <a href="https://apps.apple.com/us/app/ink-well-keeper/id6754206379" target="_blank" rel="noopener"><img src="icons/ink-well-keeper.png" alt="Ink Well Keeper app icon"></a>
+    <a href="https://apps.apple.com/us/app/quietquest-mindful-breaks/id6754220705" target="_blank" rel="noopener"><img src="icons/quietquest.png" alt="QuietQuest app icon"></a>
+    <a href="https://apps.apple.com/us/app/scriptureai-bible-study/id6751468921" target="_blank" rel="noopener"><img src="icons/scriptureai.png" alt="ScriptureAI app icon"></a>
+    <a href="https://apps.apple.com/us/app/extramile/id6504718247" target="_blank" rel="noopener"><img src="icons/extramile.png" alt="ExtraMile+ app icon"></a>
+    <a href="https://apps.apple.com/us/app/prtracker-gym-record-tracking/id6443760870" target="_blank" rel="noopener"><img src="icons/prtracker.png" alt="PRTracker app icon"></a>
+  </div>
+
+  <p class="stats">8 apps shipped · <span class="star">★</span> 4.7 average across all ratings · shipping since 2023</p>
+
+  <h2 class="section-header">Apps — newest first</h2>
+  <ul class="group">
+    <li class="cell">
+      <img src="icons/fridgecig.png" alt="">
+      <div>
+        <h2>FridgeCig</h2>
+        <p class="tagline">Track every Diet Coke — with streaks, badges, and friendly competition.</p>
+        <p class="meta">Food &amp; Drink · <span class="star">★</span> 5.0 · Shipped 2026</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/fridgecig/id6757887069" target="_blank" rel="noopener" aria-label="View FridgeCig on the App Store">View</a>
+    </li>
+    <li class="cell">
+      <img src="icons/gomoku.png" alt="">
+      <div>
+        <h2>go!moku</h2>
+        <p class="tagline">Classic five-in-a-row with fast matches, a strong solo AI, and online play.</p>
+        <p class="meta">Games · <span class="star">★</span> 5.0 · Shipped 2026</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/go-moku/id6755370673" target="_blank" rel="noopener" aria-label="View go!moku on the App Store">View</a>
+    </li>
+    <li class="cell">
+      <img src="icons/memorizeit.png" alt="">
+      <div>
+        <h2>MemorizeIt: Bible Verse Learn</h2>
+        <p class="tagline">Memorize Scripture through active typing practice, not flashcard recognition.</p>
+        <p class="meta">Education · <span class="star">★</span> 5.0 · Shipped 2025</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/memorizeit-bible-verse-learn/id6755984758" target="_blank" rel="noopener" aria-label="View MemorizeIt on the App Store">View</a>
+    </li>
+    <li class="cell">
+      <img src="icons/ink-well-keeper.png" alt="">
+      <div>
+        <h2>Ink Well Keeper</h2>
+        <p class="tagline">Scan, organize, and value a Disney Lorcana TCG collection.</p>
+        <p class="meta">Reference · <span class="star">★</span> 4.7 · Shipped 2025</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/ink-well-keeper/id6754206379" target="_blank" rel="noopener" aria-label="View Ink Well Keeper on the App Store">View</a>
+    </li>
+    <li class="cell">
+      <img src="icons/quietquest.png" alt="">
+      <div>
+        <h2>QuietQuest: Mindful Breaks</h2>
+        <p class="tagline">Science-backed micro-breaks that build healthier habits for desk workers.</p>
+        <p class="meta">Health &amp; Fitness · <span class="star">★</span> 5.0 · Shipped 2025</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/quietquest-mindful-breaks/id6754220705" target="_blank" rel="noopener" aria-label="View QuietQuest on the App Store">View</a>
+    </li>
+    <li class="cell">
+      <img src="icons/scriptureai.png" alt="">
+      <div>
+        <h2>ScriptureAI: Bible Study</h2>
+        <p class="tagline">Ask any Bible question and get an answer rooted in Scripture.</p>
+        <p class="meta">Reference · <span class="star">★</span> 3.8 · Shipped 2025</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/scriptureai-bible-study/id6751468921" target="_blank" rel="noopener" aria-label="View ScriptureAI on the App Store">View</a>
+    </li>
+    <li class="cell">
+      <img src="icons/extramile.png" alt="">
+      <div>
+        <h2>ExtraMile+</h2>
+        <p class="tagline">Set mileage goals, log every run, and watch the progress add up.</p>
+        <p class="meta">Health &amp; Fitness · <span class="star">★</span> 5.0 · Shipped 2024</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/extramile/id6504718247" target="_blank" rel="noopener" aria-label="View ExtraMile+ on the App Store">View</a>
+    </li>
+    <li class="cell">
+      <img src="icons/prtracker.png" alt="">
+      <div>
+        <h2>PRTracker: Gym Record Tracking</h2>
+        <p class="tagline">Log every personal record and see exactly how strong you're getting.</p>
+        <p class="meta">Health &amp; Fitness · <span class="star">★</span> 5.0 · Shipped 2023</p>
+      </div>
+      <a class="view" href="https://apps.apple.com/us/app/prtracker-gym-record-tracking/id6443760870" target="_blank" rel="noopener" aria-label="View PRTracker on the App Store">View</a>
+    </li>
+  </ul>
+
+  <h2 class="section-header">About the work</h2>
+  <div class="about">
+    <p><strong>I build apps in my free time, for fun</strong> — every one of them has a story behind why it exists. Having thousands of people actually using them is what keeps me motivated to make each one better every day.</p>
+    <p>Every app above is a <strong>solo build</strong>: idea, design, Swift code, App Store listing, and post-launch updates. Six of the eight shipped in the last twelve months.</p>
+    <p>The lineup covers real product range — health &amp; fitness tracking, an AI-powered study tool, a TCG collection scanner, an online multiplayer game, and habit-building utilities.</p>
+  </div>
+
+  <footer>
+    <p>Designed and built by Brevin Blalock — this page included.</p>
+  </footer>
+
+</div>
+</body>
+</html>
