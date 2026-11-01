@@ -44,6 +44,18 @@ def stars(rating):
     return f'<span class="star">★</span> {rating:.1f}'
 
 
+def is_released(app):
+    """An app without an App Store link yet is listed as coming soon."""
+    return bool(app.get("appStore"))
+
+
+def meta(app, since):
+    """Category · rating · year, or "Coming soon" before release."""
+    if not is_released(app):
+        return f"{e(app['category'])} · Coming soon"
+    return f"{e(app['category'])} · {stars(app['rating'])} · {since} {app['year']}"
+
+
 def page(title, description, body, root):
     return f"""<!DOCTYPE html>
 <html lang="en">
@@ -88,21 +100,29 @@ def legal_index(root):
     return f'  <ul class="group">\n{rows}\n  </ul>'
 
 
+def view_link(app):
+    if not is_released(app):
+        return f'<a class="view" href="apps/{app["slug"]}/" aria-label="{e(app["short"])} is coming soon">Soon</a>'
+    return (f'<a class="view" href="{e(app["appStore"])}" target="_blank" rel="noopener" '
+            f'aria-label="View {e(app["short"])} on the App Store">View</a>')
+
+
 def build_home():
-    count = NUMBER_WORDS[len(APPS)]
+    shipped = [a for a in APPS if is_released(a)]
+    count = NUMBER_WORDS[len(shipped)]
     dock = "\n".join(
         f'    <a href="{e(a["appStore"])}" target="_blank" rel="noopener">'
-        f'<img src="icons/{a["icon"]}" alt="{e(a["short"])} app icon"></a>' for a in APPS)
+        f'<img src="icons/{a["icon"]}" alt="{e(a["short"])} app icon"></a>' for a in shipped)
     cells = "\n".join(f"""    <li class="cell">
       <img src="icons/{a['icon']}" alt="">
       <div>
         <h2><a href="apps/{a['slug']}/">{e(a['name'])}</a></h2>
         <p class="tagline">{e(a['tagline'])}</p>
-        <p class="meta">{e(a['category'])} · {stars(a['rating'])} · Shipped {a['year']}</p>
+        <p class="meta">{meta(a, "Shipped")}</p>
       </div>
-      <a class="view" href="{e(a['appStore'])}" target="_blank" rel="noopener" aria-label="View {e(a['short'])} on the App Store">View</a>
+      {view_link(a)}
     </li>""" for a in APPS)
-    first_year = min(a["year"] for a in APPS)
+    first_year = min(a["year"] for a in shipped)
     body = f"""  <header>
     <p class="eyebrow">iOS Developer</p>
     <h1>{SITE_NAME}</h1>
@@ -119,7 +139,7 @@ def build_home():
 {dock}
   </div>
 
-  <p class="stats">{len(APPS)} apps shipped · {stars(AVERAGE_RATING)} average across all ratings · shipping since {first_year}</p>
+  <p class="stats">{len(shipped)} apps shipped · {stars(AVERAGE_RATING)} average across all ratings · shipping since {first_year}</p>
 
   <h2 class="section-header">Apps — newest first</h2>
   <ul class="group">
@@ -139,6 +159,14 @@ def build_home():
                              body, ""))
 
 
+def store_pill(app):
+    if not is_released(app):
+        return ""
+    return f"""  <nav class="links">
+    <a class="link-pill primary" href="{e(app['appStore'])}" target="_blank" rel="noopener">View on the App&nbsp;Store</a>
+  </nav>"""
+
+
 def build_app(app):
     root = "../../"
     rows = "\n".join(f'    <a class="row-link" href="{d}/"><span>{doc_title(app, d)}</span><span class="chevron">›</span></a>'
@@ -149,13 +177,11 @@ def build_app(app):
     <div>
       <h1>{e(app['name'])}</h1>
       <p class="subtitle">{e(app['subtitle'])}</p>
-      <p class="meta">{e(app['category'])} · {stars(app['rating'])} · Since {app['year']}</p>
+      <p class="meta">{meta(app, "Since")}</p>
     </div>
   </header>
   <p class="app-tagline">{e(app['tagline'])}</p>
-  <nav class="links">
-    <a class="link-pill primary" href="{e(app['appStore'])}" target="_blank" rel="noopener">View on the App&nbsp;Store</a>
-  </nav>
+{store_pill(app)}
 
   <h2 class="section-header">Legal &amp; support</h2>
   <nav class="group" aria-label="{e(app['short'])} documents">

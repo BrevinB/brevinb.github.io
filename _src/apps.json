@@ -1,5 +1,20 @@
 [
   {
+    "slug": "kyber-vault",
+    "name": "Kyber Vault: Card Scanner",
+    "short": "Kyber Vault",
+    "subtitle": "SWU Collection & Deck Tracker",
+    "tagline": "Scan, value, and organize a Star Wars: Unlimited collection, then build decks and keep score.",
+    "category": "Entertainment",
+    "year": 2026,
+    "icon": "kyber-vault.png",
+    "email": "brevbot2@gmail.com",
+    "docs": [
+      "privacy",
+      "support"
+    ]
+  },
+  {
     "slug": "tub-pirates",
     "name": "Tub Pirates: Sea Battles",
     "short": "Tub Pirates",
@@ -12,7 +27,10 @@
     "icon": "tub-pirates.png",
     "appStore": "https://apps.apple.com/us/app/tub-pirates-sea-battles/id6792769794",
     "email": "brevbot2@gmail.com",
-    "docs": ["privacy", "support"]
+    "docs": [
+      "privacy",
+      "support"
+    ]
   },
   {
     "slug": "fridgecig",
@@ -27,7 +45,10 @@
     "icon": "fridgecig.png",
     "appStore": "https://apps.apple.com/us/app/fridgecig/id6757887069",
     "email": "brevbot2@gmail.com",
-    "docs": ["privacy", "terms"]
+    "docs": [
+      "privacy",
+      "terms"
+    ]
   },
   {
     "slug": "gomoku",
@@ -42,7 +63,10 @@
     "icon": "gomoku.png",
     "appStore": "https://apps.apple.com/us/app/go-moku/id6755370673",
     "email": "brevbot2@gmail.com",
-    "docs": ["privacy", "terms"]
+    "docs": [
+      "privacy",
+      "terms"
+    ]
   },
   {
     "slug": "memorizeit",
@@ -57,7 +81,10 @@
     "icon": "memorizeit.png",
     "appStore": "https://apps.apple.com/us/app/memorizeit-bible-verse-memory/id6755984758",
     "email": "brevbot2@gmail.com",
-    "docs": ["privacy", "terms"]
+    "docs": [
+      "privacy",
+      "terms"
+    ]
   },
   {
     "slug": "ink-well-keeper",
@@ -72,7 +99,10 @@
     "icon": "ink-well-keeper.png",
     "appStore": "https://apps.apple.com/us/app/ink-well-keeper/id6754206379",
     "email": "support@inkwellkeeper.app",
-    "docs": ["privacy", "support"]
+    "docs": [
+      "privacy",
+      "support"
+    ]
   },
   {
     "slug": "quietquest",
@@ -87,7 +117,11 @@
     "icon": "quietquest.png",
     "appStore": "https://apps.apple.com/us/app/quietquest-break-reminder/id6754220705",
     "email": "support@quietquest.app",
-    "docs": ["privacy", "terms", "support"]
+    "docs": [
+      "privacy",
+      "terms",
+      "support"
+    ]
   },
   {
     "slug": "scriptureai",
@@ -102,7 +136,11 @@
     "icon": "scriptureai.png",
     "appStore": "https://apps.apple.com/us/app/scriptureai-bible-study/id6751468921",
     "email": "hello@scriptureai.app",
-    "docs": ["privacy", "terms", "support"]
+    "docs": [
+      "privacy",
+      "terms",
+      "support"
+    ]
   },
   {
     "slug": "extramile",
@@ -117,7 +155,10 @@
     "icon": "extramile.png",
     "appStore": "https://apps.apple.com/us/app/extramile/id6504718247",
     "email": "brevinb@icloud.com",
-    "docs": ["privacy", "terms"],
+    "docs": [
+      "privacy",
+      "terms"
+    ],
     "termsTitle": "Terms of Use"
   },
   {
@@ -133,6 +174,8 @@
     "icon": "prtracker.png",
     "appStore": "https://apps.apple.com/us/app/prtracker-gym-record-tracking/id6443760870",
     "email": "support@prtracker.app",
-    "docs": ["privacy"]
+    "docs": [
+      "privacy"
+    ]
   }
 ]

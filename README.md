@@ -30,4 +30,6 @@ python3 -m http.server 8765   # preview at http://localhost:8765
 
 **Shipping a new app:** add an entry to `apps.json`, drop its icon (320×320 PNG) in `icons/`, add its `privacy.html` under `_src/content/<slug>/`, rebuild, commit.
 
+**Before release:** leave out `appStore`, `rating`, and `ratingCount`. The app is listed as "Coming soon" with working privacy and support pages (so App Store Connect has URLs), and it isn't counted in the shipped total, the icon dock, or the average rating. Add the three fields once it's live.
+
 `_src/`, `build.py`, and this README are excluded from the published site via `_config.yml`. All links are relative, so moving to a custom domain needs only a `CNAME` file.
