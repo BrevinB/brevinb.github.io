@@ -1,0 +1,4 @@
+exclude:
+  - _src
+  - build.py
+  - README.md
