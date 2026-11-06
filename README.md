@@ -11,6 +11,7 @@ Portfolio plus the privacy policies, terms, and support pages for all my App Sto
 | `/apps/<slug>/privacy/` | Privacy policy (use this as the App Store Connect **Privacy Policy URL**) |
 | `/apps/<slug>/terms/` | Terms of service, where the app has one |
 | `/apps/<slug>/support/` | Support page (use this as the App Store Connect **Support URL**) |
+| `/apps/<slug>/press/` | Press kit, where the app has one (assets in `assets/press/<slug>/`) |
 | `/privacy/`, `/support/` | Index of every app's docs |
 
 Slugs: `tub-pirates`, `fridgecig`, `gomoku`, `memorizeit`, `ink-well-keeper`, `quietquest`, `scriptureai`, `extramile`, `prtracker`.
@@ -25,7 +26,7 @@ python3 -m http.server 8765   # preview at http://localhost:8765
 ```
 
 - **`_src/apps.json`** — app list (order = newest first), ratings, taglines, contact email, and which docs each app has.
-- **`_src/content/<slug>/{privacy,terms,support}.html`** — the documents, as HTML fragments without a title. An app with no `support.html` gets a generated support page using its contact email.
+- **`_src/content/<slug>/{privacy,terms,support,press}.html`** — the documents, as HTML fragments without a title. An app with no `support.html` gets a generated support page using its contact email.
 - **`_src/about.html`** — the "About the work" blurb on the home page.
 
 **Shipping a new app:** add an entry to `apps.json`, drop its icon (320×320 PNG) in `icons/`, add its `privacy.html` under `_src/content/<slug>/`, rebuild, commit.

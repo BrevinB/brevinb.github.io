@@ -325,6 +325,21 @@ h1 {
 }
 .prose th { color: var(--label); font-weight: 600; }
 
+/* ---- Press kits ---- */
+.prose table.facts th { white-space: nowrap; width: 1%; }
+.prose .links { margin: 4px 0 8px; }
+.prose blockquote {
+  border-left: 3px solid var(--tint);
+  margin: 12px 0;
+  padding: 2px 0 2px 16px;
+  font-style: italic;
+}
+.prose blockquote cite { display: block; font-style: normal; color: var(--secondary); margin-top: 4px; font-size: 14px; }
+.shots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0; }
+.shots.wide { grid-template-columns: repeat(3, 1fr); }
+.shots a { display: block; border-radius: 10px; overflow: hidden; border: 1px solid var(--separator); }
+.shots img { display: block; width: 100%; height: auto; }
+
 footer {
   margin-top: 44px;
   font-size: 13px;
@@ -344,4 +359,5 @@ footer p + p { margin-top: 6px; }
   .app-head { grid-template-columns: 84px 1fr; gap: 16px; }
   .app-head img { width: 84px; height: 84px; }
   .prose { padding: 20px 18px 24px; }
+  .shots, .shots.wide { grid-template-columns: repeat(2, 1fr); }
 }

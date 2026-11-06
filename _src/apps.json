@@ -8,10 +8,12 @@
     "category": "Entertainment",
     "year": 2026,
     "icon": "kyber-vault.png",
+    "appStore": "https://apps.apple.com/us/app/kyber-vault-card-scanner/id6827789385",
     "email": "brevbot2@gmail.com",
     "docs": [
       "privacy",
-      "support"
+      "support",
+      "press"
     ]
   },
   {

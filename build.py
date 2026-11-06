@@ -4,7 +4,7 @@
     python3 build.py
 
 Reads _src/apps.json and the per-app legal documents in _src/content/<slug>/
-(privacy.html, terms.html, support.html — HTML fragments without a title) and
+(privacy.html, terms.html, support.html, press.html — HTML fragments without a title) and
 writes index.html, apps/<slug>/…, privacy/, support/ and 404.html.
 Everything links relatively, so the site works on brevinb.github.io or any
 custom domain without changes.
@@ -23,7 +23,9 @@ CONTACT_EMAIL = "bblalock313@gmail.com"
 APP_STORE_DEV = "https://apps.apple.com/us/developer/brevin-blalock/id1649097120"
 GITHUB = "https://github.com/brevinb"
 LINKEDIN = "https://www.linkedin.com/in/brevinb"
-DOC_TITLES = {"privacy": "Privacy Policy", "terms": "Terms of Service", "support": "Support"}
+DOC_TITLES = {"privacy": "Privacy Policy", "terms": "Terms of Service", "support": "Support", "press": "Press Kit"}
+# Docs that aren't legal or support pages, left out of the Privacy and Support hubs.
+HUB_EXCLUDED = {"press"}
 NUMBER_WORDS = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
                 "nine", "ten", "eleven", "twelve"]
 
@@ -53,6 +55,8 @@ def meta(app, since):
     """Category · rating · year, or "Coming soon" before release."""
     if not is_released(app):
         return f"{e(app['category'])} · Coming soon"
+    if not app.get("rating"):
+        return f"{e(app['category'])} · New · {since} {app['year']}"
     return f"{e(app['category'])} · {stars(app['rating'])} · {since} {app['year']}"
 
 
@@ -86,7 +90,7 @@ def write(rel_path, content):
 
 def doc_links(app, root):
     base = f"{root}apps/{app['slug']}/"
-    return "".join(f'<a href="{base}{d}/">{doc_title(app, d)}</a>' for d in app_docs(app))
+    return "".join(f'<a href="{base}{d}/">{doc_title(app, d)}</a>' for d in app_docs(app) if d not in HUB_EXCLUDED)
 
 
 def legal_index(root):
